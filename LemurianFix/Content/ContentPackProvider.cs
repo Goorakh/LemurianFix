@@ -30,19 +30,12 @@ namespace LemurianFix.Content
         {
             _contentPack.identifier = identifier;
 
-            const int NUM_LOAD_OPERATIONS = 3;
+            const int NUM_LOAD_OPERATIONS = 2;
 
             AsyncOperationHandle<GameObject> lemurianBodyLoad = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Lemurian/LemurianBody.prefab");
             while (!lemurianBodyLoad.IsDone)
             {
                 args.ReportProgress(Util.Remap(lemurianBodyLoad.PercentComplete, 0f, 1f, 0f, 1f / NUM_LOAD_OPERATIONS));
-                yield return 0;
-            }
-
-            AsyncOperationHandle<GameObject> lemurianMasterLoad = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Lemurian/LemurianMaster.prefab");
-            while (!lemurianMasterLoad.IsDone)
-            {
-                args.ReportProgress(Util.Remap(lemurianMasterLoad.PercentComplete, 0f, 1f, 1f / NUM_LOAD_OPERATIONS, 2f / NUM_LOAD_OPERATIONS));
                 yield return 0;
             }
 
@@ -54,10 +47,14 @@ namespace LemurianFix.Content
             }
 
             GameObject lemurianBodyPrefab = lemurianBodyLoad.Result;
-            GameObject lemurianMasterPrefab = lemurianMasterLoad.Result;
             GameObject devotedLemurianMasterPrefab = devotedLemurianMasterLoad.Result;
 
             GameObject devotedLemurianBodyPrefab = lemurianBodyPrefab.InstantiateClone("DevotedLemurianBody", true);
+
+            if (devotedLemurianBodyPrefab.TryGetComponent(out DeathRewards deathRewards))
+            {
+                deathRewards.logUnlockableDef = null;
+            }
 
             _contentPack.bodyPrefabs.Add([
                 devotedLemurianBodyPrefab

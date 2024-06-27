@@ -2,7 +2,7 @@
 	"name": "LemurianFix",
 	"authorName": "Gorakh",
 	"displayName": "LemurianFix",
-	"version_number": "1.0.0",
+	"version_number": "1.0.1",
 	"website_url": "https://github.com/Goorakh/LemurianFix",
 	"description": "Fixes the game often confusing Lemurians and treating regular Lemurians as Devoted Lemurians",
 	"dependencies": [

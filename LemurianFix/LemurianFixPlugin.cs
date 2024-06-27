@@ -10,7 +10,7 @@ namespace LemurianFix
         public const string PluginGUID = PluginAuthor + "." + PluginName;
         public const string PluginAuthor = "Gorakh";
         public const string PluginName = "LemurianFix";
-        public const string PluginVersion = "1.0.0";
+        public const string PluginVersion = "1.0.1";
 
         internal static LemurianFixPlugin Instance { get; private set; }
         
